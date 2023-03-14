@@ -7,3 +7,4 @@ console.log(obj.result);
 
 //값 혹은 객체를 JSON형태의 문자열로 변경
 console.log(JSON.stringify({x:4, y:2, result: true}));
+console.log(typeof JSON.stringify({x:4, y:2, result: true})); //string
