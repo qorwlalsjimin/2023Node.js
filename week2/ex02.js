@@ -9,5 +9,6 @@ function func_callback(){
 function func_one(callback){
     console.log("함수 실행");
     callback();
+    callback``;
 }
 func_one(func_callback);
