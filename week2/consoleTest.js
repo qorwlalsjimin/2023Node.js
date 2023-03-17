@@ -15,3 +15,6 @@ const obj = {
 console.dir(obj, {colors:false, depth:2});
 console.dir(obj, {colors:true, depth:1});
 //depth의 기본값 2
+
+console.log(__filename);
+console.log(__dirname);
