@@ -1,18 +1,20 @@
 //노드 서버 만들기
 
 const http = require('http');
-const fs = require('fs');
+const fs = require('fs').promises;
 
-const server = http.createServer((req, res)=>{
-    fs.readFile("./server2_html.html", (err, data)=>{
-        if(err){
-            throw err;
-        }
-        //console.log(data.toString()); //html 내용이 들어가있음
-        res.statusCode = 200; //성공, 4xx: 클라이언트 오류, 5xx: 서버 오류
-        res.setHeader("Content-Type", "text/html");
+const server = http.createServer(async (req, res)=>{
+    //에러가 나서 서버 끊기는 것 방지
+    try{
+        const data = await fs.readFile("./server2_html.html");
+        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
         res.end(data);
-    });
+    }catch(err){
+        console.error(err);
+        res.writeHead(500, {'Content-Type': 'text/plain;charset=utf-8'});
+        res.end(err.message);
+    }
+
 });
 
 server.listen(8088);
