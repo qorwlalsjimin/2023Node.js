@@ -3,15 +3,15 @@
 const http = require('http');
 const fs = require('fs').promises;
 
-const server = http.createServer(async (req, res)=>{
+const server = http.createServer(async (req, res)=>{ //(요청, 응답)
     //에러가 나서 서버 끊기는 것 방지
     try{
         const data = await fs.readFile("./server2_html.html");
-        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'}); //성공
         res.end(data);
     }catch(err){
         console.error(err);
-        res.writeHead(500, {'Content-Type': 'text/plain;charset=utf-8'});
+        res.writeHead(500, {'Content-Type': 'text/plain;charset=utf-8'}); //에러
         res.end(err.message);
     }
 
