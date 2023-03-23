@@ -9,3 +9,12 @@ const server = http.createServer((req, res)=>{
     console.log("8088번 포트에서 서버가 대기 중입니다.");
 });
 
+server.listen(8088);
+//이벤트
+server.on('listening', ()=>{
+    console.log("8088번 포트에서 서버가 대기 중입니다.")
+});
+
+server.on('error', (error)=>{
+    console.error(error);
+});
