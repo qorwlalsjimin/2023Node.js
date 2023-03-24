@@ -6,6 +6,7 @@ const fs = require('fs').promises
 
 let readData = "읽어오지 못했습니다";
 
+//if문 중첩 방지
 fs.readFile("./readText.txt")
     .then((data)=>{
         console.log(data.toString());
