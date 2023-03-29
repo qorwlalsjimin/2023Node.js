@@ -3,6 +3,8 @@
 const http = require('http');
 const fs = require('fs').promises;
 
+const path = require('path');
+
 const server = http.createServer(async (req, res)=>{ //(요청, 응답)
     //에러가 나서 서버 끊기는 것 방지
     try{
@@ -17,7 +19,9 @@ const server = http.createServer(async (req, res)=>{ //(요청, 응답)
 
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'}); //성공
 
-        console.log("fileSet: ", fileSet);
+        console.log("fileSet: ", fileSet, "__dirname", __dirname);
+        console.log("경로: ", path.join(__dirname, "./htmlFile/", fileSet+".html")); //경로
+        
         const data = await fs.readFile(`./htmlFile/${fileSet}.html`);
         res.end(data);
     }catch(err){
