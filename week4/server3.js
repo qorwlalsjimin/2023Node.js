@@ -1,4 +1,7 @@
 //url path를 이용해서 다른 파일 가져오기
+//http://localhost:8088/ => 기본은 index로 설정
+//http://localhost:8088/index
+//http://localhost:8088/math
 
 const http = require('http');
 const fs = require('fs').promises;
