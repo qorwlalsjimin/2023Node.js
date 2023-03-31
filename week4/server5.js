@@ -20,22 +20,51 @@ const server = http.createServer(async (req, res)=>{
         
         //요소 만들기
         let fileListText = '<ul>';//html ul-list 태그
-        fileList.then((file_list)=>{
+        await fileList.then((file_list)=>{ //이 블럭이 다 끝나야 다음 줄 실행 (await 키워드)
             let ii = 0;
             console.log("file_list", file_list);
             while(ii < file_list.length){
                 let dateData = file_list[ii].replace("menu_","").replace(".txt", ""); //파일명 간단하게 만들기
-                fileListText += `<li><a href="/?date=${dateData}`;
+                fileListText += `<li><a href="/?date=${dateData}">${dateData}</a></li>`;
                 ii+=1;
             }
         })
 
-        res.writeHead(200, {'Context-Type': 'text/plain; charset=utf-8'})
-        res.end("성공");
+
+        fileListText += '</ul>';
+
+        console.log(fileListText);
+
+        const searchParams = new URL(req.url," http://localhost:8089").searchParams;
+        console.log("searchParams", searchParams);
+
+        const param_date = searchParams.get("date") || "null";
+    
+        const fileName = path.join(__dirname, `./textFile/menu_${param_date}.txt`);
+        let fileDate = await fs.readFile(fileName);
+
+        const template = `
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>급식 메뉴</title>
+                </head>
+                <body>
+                    <h1><a href="/">급식메뉴</a></h1>
+                    ${fileListText}
+                    <br>
+                    ${fileDate}
+                </body>
+            </html>
+        `;
+
+        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+        res.end(template);
     }
     catch(err){
         console.err(err);
-        res.writeHead(500, {'Context-Type': 'text/plain; charset=utf-8'})
+        res.writeHead(500, {'Content-Type': 'text/html; charset=utf-8'})
         res.end(err.message)
     }
 });
