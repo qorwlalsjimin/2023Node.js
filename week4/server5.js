@@ -41,7 +41,9 @@ const server = http.createServer(async (req, res)=>{
         const param_date = searchParams.get("date") || "null";
     
         const fileName = path.join(__dirname, `./textFile/menu_${param_date}.txt`);
-        let fileDate = await fs.readFile(fileName);
+        let fileData = await fs.readFile(fileName);
+        let fileDataString = fileData.toString().replace(/\r/g,"<br>"); //모든(g) 개행 문자를 <br>태그로 변환
+        console.log("텍스트: ",fileDataString);
 
         const template = `
             <!DOCTYPE html>
@@ -54,7 +56,7 @@ const server = http.createServer(async (req, res)=>{
                     <h1><a href="/">급식메뉴</a></h1>
                     ${fileListText}
                     <br>
-                    ${fileDate}
+                    ${fileDataString}
                 </body>
             </html>
         `;
