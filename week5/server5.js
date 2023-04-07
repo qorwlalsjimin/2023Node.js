@@ -58,6 +58,7 @@ const server = http.createServer(async (req, res)=>{
             </form>`
         }else if(pathname == '/update'){
             subContent = `<form action="update_process" method="post">
+                <input type="hidden" name="id" value="${param_date}"/>
                 <p><input type="text" name="title" placeholder="title" value=${param_date}></p>
                 <p><textarea name="description" placeholder="description">${fileDataString}</textarea></p>
                 <p><input type="submit"/></p>
@@ -99,7 +100,24 @@ const server = http.createServer(async (req, res)=>{
                 res.writeHead(302, {Location: `/?date=${encodeURIComponent(title)}`});
                 res.end();
             });
-        }else{
+        }else if(pathname == '/update_process'){
+            let body = '';
+            req.on('data', function(data){
+                body += body + data;
+            });
+            req.on('end', async function(){
+                const post = qs.parse(body); //parse로 body에 있는 내용 값으로 바꾸기
+                const id = post.id;
+                console.log("***", id);
+                const title = post.title;
+                const description = post.description;
+                await fs.rename(`textFile/menu_${id}.txt`, `textFile/menu_${title}.txt`);
+                await fs.writeFile(`textFile/menu_${title}.txt`, description, 'utf-8');
+                res.writeHead(302, {Location: `/?date=${encodeURIComponent(title)}`});
+                res.end();
+            })
+        }
+        else{
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
             res.end(template);
         }
