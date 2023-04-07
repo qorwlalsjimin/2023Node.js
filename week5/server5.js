@@ -56,6 +56,12 @@ const server = http.createServer(async (req, res)=>{
                 <p><textarea name="description" placeholder="description"></textarea></p>
                 <p><input type="submit"/></p>
             </form>`
+        }else if(pathname == '/update'){
+            subContent = `<form action="update_process" method="post">
+                <p><input type="text" name="title" placeholder="title" value=${param_date}></p>
+                <p><textarea name="description" placeholder="description">${fileDataString}</textarea></p>
+                <p><input type="submit"/></p>
+            </form>`
         }
 
         const template = `
@@ -71,7 +77,7 @@ const server = http.createServer(async (req, res)=>{
                 <br>
                 ${fileDataString}
                 <br>
-                <a href="create">create</a><a href="/update?id=${title}">update</a>
+                <a href="create">create</a><a href="/update?date=${param_date}">update</a>
                 ${subContent}
             </body>
         </html>
