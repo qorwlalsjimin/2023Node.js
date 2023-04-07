@@ -58,6 +58,25 @@ const server = http.createServer(async (req, res)=>{
             </form>`
         }
 
+        const template = `
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>급식 메뉴</title>
+            </head>
+            <body>
+                <h1><a href="/">급식메뉴</a></h1>
+                ${fileListText}
+                <br>
+                ${fileDataString}
+                <br>
+                <a href="create">create</a><a href="/update?id=${title}">update</a>
+                ${subContent}
+            </body>
+        </html>
+    `;
+
         if(pathname == '/create_process'){
             let body = "";
             req.on('data', function(data){
@@ -71,32 +90,14 @@ const server = http.createServer(async (req, res)=>{
                 console.log("내용: ", post);
 
                 //글 작성후 해당 내용을 볼 수 있도록 링크 이동
-                res.writeHead(302, {Location: `?date=${title}`});
+                res.writeHead(302, {Location: `/?date=${encodeURIComponent(title)}`});
                 res.end();
             });
+        }else{
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+            res.end(template);
         }
 
-        const template = `
-            <!DOCTYPE html>
-            <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>급식 메뉴</title>
-                </head>
-                <body>
-                    <h1><a href="/">급식메뉴</a></h1>
-                    ${fileListText}
-                    <br>
-                    ${fileDataString}
-                    <br>
-                    <a href="create">create</a><a href="/update?id=${title}">update</a>
-                    ${subContent}
-                </body>
-            </html>
-        `;
-
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-        res.end(template);
     }
     catch(err){
         console.error(err);
