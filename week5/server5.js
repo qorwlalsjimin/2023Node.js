@@ -58,6 +58,24 @@ const server = http.createServer(async (req, res)=>{
             </form>`
         }
 
+        if(pathname == '/create_process'){
+            let body = "";
+            req.on('data', function(data){
+                body += data;
+            });
+            req.on('end', function(){
+                const post = qs.parse(body);
+                const title = post.title; //파일 제목. input태그의 title
+                const description = post.description;
+                fs.writeFile(path.join(__dirname, `./textFile/menu_${title}.txt`), description, 'utf-8', function(err){});
+                console.log("내용: ", post);
+
+                //글 작성후 해당 내용을 볼 수 있도록 링크 이동
+                res.writeHead(302, {Location: `?date=${title}`});
+                res.end();
+            });
+        }
+
         const template = `
             <!DOCTYPE html>
             <html lang="en">
