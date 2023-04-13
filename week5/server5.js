@@ -106,12 +106,15 @@ const server = http.createServer(async (req, res)=>{
                 body += body + data;
             });
             req.on('end', async function(){
+                //parse(): 객체로 만들어줌
                 const post = qs.parse(body); //parse로 body에 있는 내용 값으로 바꾸기
                 const id = post.id;
                 console.log("***", id);
                 const title = post.title;
                 const description = post.description;
-                await fs.rename(`textFile/menu_${id}.txt`, `textFile/menu_${title}.txt`);
+
+                await fs.rename(path.join(__dirname, `textFile/menu_${id}.txt`), 
+                    path.join(__dirname, `textFile/menu_${title}.txt`));
                 await fs.writeFile(`textFile/menu_${title}.txt`, description, 'utf-8');
                 res.writeHead(302, {Location: `/?date=${encodeURIComponent(title)}`});
                 res.end();
