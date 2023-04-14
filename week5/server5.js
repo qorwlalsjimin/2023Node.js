@@ -39,7 +39,7 @@ const server = http.createServer(async (req, res)=>{
         const searchParams = new URL(req.url," http://localhost:8089").searchParams;
         console.log("searchParams", searchParams);
 
-        const param_date = searchParams.get("date") || "null";
+        const param_date = searchParams.get("date") || "null"; //null 파일을 지우면 안 됨
     
         const fileName = path.join(__dirname, `./textFile/menu_${param_date}.txt`);
         let fileData = await fs.readFile(fileName);
@@ -78,7 +78,13 @@ const server = http.createServer(async (req, res)=>{
                 <br>
                 ${fileDataString}
                 <br>
-                <a href="create">create</a><a href="/update?date=${param_date}">update</a>
+                <!--onclick하면 해당하는 주소로 이동-->
+                <input type="button" value="create" onclick='location.href="/create"'/>
+                <input type="button" value="update" onclick='location.href="/update?date=${param_date}"'/>
+                <form action="delete_process" method="post">
+                    <input type="hidden" name="id" value="${param_date}"/>
+                    <input type="submit" value="delete"/> 
+                </form>
                 ${subContent}
             </body>
         </html>
@@ -119,8 +125,22 @@ const server = http.createServer(async (req, res)=>{
                 res.writeHead(302, {Location: `/?date=${encodeURIComponent(title)}`});
                 res.end();
             })
-        }
-        else{
+        }else if(pathname == '/delete_process'){
+            let body = '';
+            req.on('data', function(data){
+                body += body + data;
+            });
+            req.on('end', async function(){
+                //parse(): 객체로 만들어줌
+                const post = qs.parse(body); //parse로 body에 있는 내용 값으로 바꾸기
+                console.log("post: ", post);
+                const id = post.id;
+                console.log("id: ", id);
+                await fs.unlink(path.join(__dirname, `textFile/menu_${id}.txt`)); //삭제
+                res.writeHead(302, {Location: '/'}); //다시 메인화면으로 이동
+                res.end(); //끝
+            });
+        }else{
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
             res.end(template);
         }
