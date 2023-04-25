@@ -1,7 +1,4 @@
-//morgan 미들웨어
-//외부 모듈이어서 설치해야 함
-//npm install morgan
-// : 웹 요청이 들어왔을때 로그를 출력하는 미들웨어
+//express static
 
 const express = require('express');
 
