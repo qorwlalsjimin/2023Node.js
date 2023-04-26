@@ -6,12 +6,24 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 
 const app = express();
-app.use(cookieParser);
 
+app.use(cookieParser());
+app.get('/getCookie', (req, res)=>{
+    res.send(req.cookies);
+})
+app.get('/setCookie', (req, res)=>{
+    //쿠키 생성
+    res.cookie("st1", "abc");
+    res.cookie("st2",{
+        name: "백지민",
+        age: 5
+    });
+    res.redirect("/getCookie");
+})
 app.use(function(req, res){
 
 });
 
 app.listen(8889, function(){
-    console.log("8889 포트입니다.");
+    console.log("8889 포트입니다. http://localhost:8889/setCookie");
 });
