@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "expres": "^0.0.5",
+    "express_example": "^0.0.1"
+  }
+}
