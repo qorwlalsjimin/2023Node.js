@@ -12,11 +12,10 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:false})); //쿼리스트링 설치 안 해도 됨
 
-app.use(bodyParser.json());
-// app.use('/', static(path.join(__dirname, 'public'))); //localhost:3000/login.html
-app.use('/public', static(path.join(__dirname, 'public'))); //localhost:3000/public/login.html
+app.use(bodyParser.json()); //application/json 파싱
+app.use(static(path.join(__dirname, 'public'))); //localhost:3000/login.html
 
 //미들웨어에서 파라미터 확인
 app.use(function(req,res,next){
