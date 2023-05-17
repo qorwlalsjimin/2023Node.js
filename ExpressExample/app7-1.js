@@ -15,13 +15,10 @@ app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.use(bodyParser.json());
-app.use('/', static(path.join(__dirname, 'public')));
-//app.use(static(path.join(__dirname, 'public')));
-//http://localhost:3000/public/image/boy.png "/public"
-//http://localhost:3000/image/boy.png "/"
+app.use('/', static(path.join(__dirname, 'public'))); //localhost:3000/login.html
+app.use('/public', static(path.join(__dirname, 'public'))); //localhost:3000/public/login.html
 
 //미들웨어에서 파라미터 확인
-//http://localhost:3000/?id=admin&password=1234
 app.use(function(req,res,next){
     console.log('첫번째 미들웨어에서 요청 처리');
 
