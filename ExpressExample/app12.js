@@ -85,7 +85,7 @@ router.route('/process/logout').get(function(req,res){
             if(err) {throw err;}
 
             console.log('세션을 삭제하고 로그아웃되었습니다.');
-            res.redirect('/public/login2.html');
+            res.redirect('/public/login2.html'); //해당 route 호출
         })
     }else{
         //로그인 안 된 상태
@@ -113,5 +113,5 @@ app.use('/', router);
 
 //Express 서버 시작
 http.createServer(app).listen(3000, function(){
-    console.log('Express 서버가 3000번 포트에서 시작됨');
+    console.log('Express 서버가 3000번 포트에서 시작됨 http://localhost:3000/public/login2.html');
 })

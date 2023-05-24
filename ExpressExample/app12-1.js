@@ -42,6 +42,12 @@ app.use(expressSession({
 var router = express.Router();
 
 //라우팅 함수 등록
+router.route('/').get(function(req, res){
+    console.log('/ 호출됨');
+    res.redirect('/index.html');
+    res.end();
+});
+
 router.route('/process/login').post(function(req, res){
     console.log('/process/login 호출됨');
     
@@ -66,7 +72,7 @@ router.route('/process/login').post(function(req, res){
         res.write("<div><p>Param id : " + paramId + "</p></div>");
         res.write("<div><p>Param password : " + paramPassword + "</p></div>");
         res.write(
-          "<br><br><a href='/process/product'>상품 페이지로 이동하기</a>"
+          "<br><br><button><a href='/process/product'>상품 페이지로 이동하기</a></button>"
         );
         // router.route('/process/product').get으로 연결됨
         res.end();
