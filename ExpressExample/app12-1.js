@@ -8,16 +8,18 @@
 */
 
 //express 기본 모듈
-var http = require('http');
 var express = require('express');
+var http = require('http');
+var path = require('path');
 
 //express 미들웨어
 var bodyParser = require('body-parser');
-var static = require('serve-static');
-var path = require('path');
-
-//cookie-parser'
 var cookieParser = require('cookie-parser');
+var static = require('serve-static');
+var errorHandler = require('errorhandler');
+
+// 에러 핸들러 모듈 사용
+var expressErrorHandler = require('express-error-handler');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
@@ -31,15 +33,18 @@ var cors = require('cors');
 
 //express 객체 생성
 var app = express();
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000); // 기본 속성 설정
 
 //body-parser
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false})); //body-parser를 이용해 application/x-www-form-urlencoded 파싱
+app.use(bodyParser.json()); //body-parser를 이용해 application/json 파싱
+
+// cookie-parser 설정
+app.use(cookieParser());
 
 //** 추가2
 app.use(static(path.join(__dirname, 'uploads')));
-app.use("/", static(path.join(__dirname, "public"))); // "/" 안 써도 똑같음
+app.use(static(path.join(__dirname, "public"))); // "/" 안 써도 똑같음
 
 //** 추가3
 //클라이언트에서 ajax로 요청 시 CORS(다중서버접속)지원
@@ -204,10 +209,15 @@ router.route('/process/photo12').post(upload.array('photo12', 12), function(req,
 //라우터 객체를 app 객체에 등록
 app.use('/', router);
 
-// //등록되지 않은 패스에 대해 페이지 오류 응답
-// app.all('*', function(req, res){
-//     res.status(404).send('<h1>ERROR - 페이지를 찾을 수 없습니다.</h1>');
-// });
+// 404 에러 페이지 처리
+var errorHandler = expressErrorHandler({
+    static: {
+      '404': './public/404.html'
+    }
+});
+
+app.use( expressErrorHandler.httpError(404) );
+app.use( errorHandler );
 
 //Express 서버 시작
 http.createServer(app).listen(3000, function(){
