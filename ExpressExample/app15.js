@@ -16,23 +16,24 @@ var bodyParser = require('body-parser');
 var static = require('serve-static');
 var path = require('path');
 
-//cookie-parser'
+//cookie-parser
 var cookieParser = require('cookie-parser');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
 
-//파일 업로드용 미들웨어
+//**파일 업로드용 미들웨어
 var multer = require('multer');
 var fs = require('fs');
 
-//클라이언트에서 ajax로 요청 시 CORS(다중 서버 접속) 지원
+//**클라이언트에서 ajax로 요청 시 CORS(다중 서버 접속) 지원
 var cors = require('cors'); //외부 도메인에서 접근 가능
 
 //express 객체 생성
 var app = express();
 app.set('port', process.env.PORT || 3000);
 
+/* app.use */
 //body-parser
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -43,19 +44,22 @@ app.use("/uploads", static(path.join(__dirname, "uploads")));
 
 // 세션 설정
 app.use(expressSession({
-    secret: 'my key',
-    resave: true,
-    saveUninitialized: true
+    secret: 'my key', //세션 암호화
+    resave: true, //세션 항상 저장할것인지
+    saveUninitialized: true //초기화 되지 않은채로 스토어에 저장할지
 }));
 
 app.use(cors());
+
+
+
 //multer 미들웨어 사용: 미들웨어 사용 순서 중요 body-parser => multer => router
-//파일 제한: 10개, 1G
+//파일 제한: 12개, 1G
 var storage = multer.diskStorage({
     destination: function(req, file, callback){
-        callback(null, 'uploads')
+        callback(null, 'uploads') //저장될 주소
     },
-    filename: function(req, file, callback){
+    filename: function(req, file, callback){ //TODO
         //callback(null, file.originalname + Date.now())
         //callback(null, file.originalname)
         var extension = path.extname(file.originalname);
@@ -64,10 +68,10 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({
+var upload = multer({ //TODO
     storage: storage,
     limits: {
-        files: 10,
+        files: 12,
         fileSize: 1024 * 1024 * 1024
     }
 });
@@ -76,7 +80,10 @@ var upload = multer({
 var router = express.Router();
 
 //파일 업로드 라우팅 함수 - 로그인 후 세션 저장함
-router.route('/process/photomulti').post(upload.array('photo', 10), function(req, res){
+router.route('/process/photo12').post(upload.array('photo12', 12), function(req, res){
+    //'/process/photo12': action
+    //upload.array('photo12', 12): input 태그 name
+
     console.log('/process/photomulti 호출');
     res.writeHead('200', {'Content-Type':'text/html; charset=utf8'});
 
@@ -128,5 +135,5 @@ app.use('/', router);
 
 //Express 서버 시작
 http.createServer(app).listen(3000, function(){
-    console.log('Express 서버가 3000번 포트에서 시작됨 http://localhost:3000/photomulti.html http://localhost:3000/uploads/boy2.png1685058610847.png');
+    console.log('Express 서버가 3000번 포트에서 시작됨 http://localhost:3000/photomulti3300.html');
 })

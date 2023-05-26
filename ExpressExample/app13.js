@@ -126,7 +126,10 @@ router.route('/process/photo').post(upload.array('photo1', 1), function(req, res
 }); //router.route('/process/photo')-end
 
 //라우터 객체를 app 객체에 등록
-app.use('/', router);
+app.use('/', router); //순서 주의!
+
+//에러 페이지 처리
+// var errorHandler = expressErrorHandler
 
 //Express 서버 시작
 http.createServer(app).listen(3000, function(){
