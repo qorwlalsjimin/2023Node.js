@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, height-device-height, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/logo.png" />
+    <link rel="icon" type="image/png" href="image/logo.png" sizes="192x192" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!--추가1-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--추가1-->
+
+    <title>로그인 테스트</title>
+</head>
+
+<body>
+    <br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<font size=5 color=gray>로그인</font><br>
+    <hr/>
+    <form method="post" action="/process/login">
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        <label class="btn btn-secondary btn-sm">아&nbsp;&nbsp;이&nbsp;&nbsp;디 </label>
+        &nbsp;
+        <input type="text" size="12" name="id" class="btn btn-outline-secondary btn-sm"></input>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        <label class="btn btn-secondary btn-sm">비밀번호</label>
+        &nbsp;
+        <input type="password" size="12" name="password" class="btn btn-outline-secondary btn-sm"></input>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="확  인" class="btn btn-danger btn-sm"></input>
+    </form>
+</body>
+
+</html>

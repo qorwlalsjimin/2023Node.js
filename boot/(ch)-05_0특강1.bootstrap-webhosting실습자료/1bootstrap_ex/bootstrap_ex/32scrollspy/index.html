@@ -1,0 +1,174 @@
+<html>
+<head>
+  <title>Bootstrap 4 Scrollspy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <style>
+  body {
+      position: relative; 
+  }
+  </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-expand-sm bg-dark  navbar-dark fixed-top">  
+  <ul class="navbar-nav">
+      <!-- <a class="navbar-brand" href="#">
+          <img src="imgs/logo1.png" alt="logo" width=20px height=25px style="width:20px;">
+      </a> -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="index.html" id="navbardrop" data-toggle="dropdown">
+        홈페이네 메뉴
+      </a>
+      <div class="dropdown-menu" >
+        <a class="dropdown-item" href="#profile.html">나의 소개</a>
+        <a class="dropdown-item" href="#lecture.html">수업자료</a>
+        <a class="dropdown-item" href="#board.html">게시판</a>
+        <a class="dropdown-item" href="#midwav.html">오디오</a>
+        <a class="dropdown-item" href="#video.html">비디오</a>
+        <a class="dropdown-item" href="#index.html">홈</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div id="index.html" class="container-fluid bg-success" style="padding-top:70px;padding-bottom:470px">
+  <div class="container">
+    <font size= "3" color = "darkblue" face="신명조">
+      안녕하세요...<p>
+        이렇게 만나게 되어 반갑습니다.<br>
+        여러가지 기능의 태그를 이용하여<br>
+        여러분의 홈페이지를 구현해보세요...<br>
+    </font>
+    <br>
+    <a href="http://www.google.com" target="blank"><img SRC="imgs/LiveWithOthers.gif" width= 50px height=50px BORDER=0 align=center></a>
+    <hr color=darkblue size=2 width=90%>
+    <footer>
+        <p>Posted by: 홍 길 동</p>
+        <p>메일 정보: <a href="mailto:someone@example.com">
+        someone@example.com</a>.</p>
+      </footer>
+    </div>
+</div>
+<div id="profile.html" class="container-fluid bg-warning" style="padding-top:70px;padding-bottom:470px">
+ <div class="container mt-3" class="bg-primary">
+  <h3>My profile</h3>
+  <p> 프론트 엔드개발자</p><br>
+  <div class="media border p-1" class="bg-primary" >
+    <img src="imgs/girl.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;" >
+    <div class="media-body">
+      <h4>홍 길 동   <small><i>프론트 앤드 개발자가 되기 위해 공부를 하고 있습니다.</i></small></h4>
+      <p>관심사</p>
+      <ul>
+        <li>jquery</li><li>bootstrap</li><li>vue.js</li><li>node.js</li>
+      </ul>
+    </div>
+  </div>
+  <br><center><button type="button" class="btn btn-outline-dark"><a href="index.html">HOME</a></button></center>
+ </div>
+</div>
+<div id="lecture.html" class="container-fluid bg-light" style="padding-top:70px;padding-bottom:470px">
+  <div class="container mt-3" class="bg-primary">
+    <h3>lecture data</h3>
+    <p> 수업자료들</p><br>
+    <style>
+      #exam {
+         background-image: url("imgs/smallbird.png");
+          background-repeat: repeat-x;
+          background-position: right bottom;
+          /*  margin-right: 200px; */
+          background-attachment: fixed;
+      
+      }
+      
+      </style>
+      <meta charset="utf-8"></head>
+      <body id=exam text="#0033cc" bgcolor="#cc66ff" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+      
+      <br>
+      <ol>
+       <li><a href="lecture/HTML5">HTML5(파일없음)</a>
+       <li><a href="lecture/WebApp">WebApp(파일없음)</a>
+       <li><a href="lecture/jQuery">jQuery(파일없음)</a>
+       <li><a href="multi/multi.hwp">동영상사용법</a>
+      </ol>
+      <center><button type="button" class="btn btn-outline-primary"><a href="index.html">HOME</a></button></center>
+  </div> 
+</div>
+<div id="board.html" class="container-fluid bg-dark" style="padding-top:170px;padding-bottom:470px">
+  <div class="container mt-3" class="bg-primary">
+    <div class="media border p-3" class="bg-primary" >
+        <img src="imgs/공사중.gif" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;" >
+        <div class="media-body">
+            지금은 공사중입니다.<br>
+            <font size=3 color=green>다음기회에 더좋은 <font size=5 color=red>게시판</font>으로 연결하겠습니다</img></font>
+        </div>
+    </div>
+    <br><center><button type="button" class="btn btn-outline-light"><a href="index.html">HOME</a></button></center>
+  </div>
+
+</div>
+<div id="midwav.html" class="container-fluid bg-danger" style="padding-top:70px;padding-bottom:470px">
+
+  <font color=blue>
+    <center>
+      <h3>컨트롤박스보이기</h3>
+      <p> 오디오 실행하기</p><br>
+    <audio controls>
+      <source src="multi/loveme.mp3" type="audio/mpeg">
+    </audio>
+    </center>
+  </font>
+  <br><center><button type="button" class="btn btn-outline-dark"><a href="index.html">HOME</a></button></center><br><br>
+</div>
+<div id="video.html" class="container-fluid bg-info" style="padding-top:70px;padding-bottom:370px">
+
+  <div style="text-align:center"> 
+    <h3>동영상보이기</h3>
+    <p> 화면크기바꾸어 실행하기</p><br>  
+    <video id="video1" width="250">
+      <source src="multi/mov_bbb.mp4" type="video/mp4">
+      <source src="multi/mov_bbb.ogg" type="video/ogg">
+      Your browser does not support HTML5 video.
+    </video>
+  <br>
+  <button type="button" class="btn btn-danger btn-sm" onclick="playPause()">Play/Pause</button> 
+  <button type="button" class="btn btn-success btn-sm" onclick="makeBig()">Big</button>
+  <button type="button" class="btn btn-warning btn-sm" onclick="makeSmall()">Small</button>
+  <button type="button" class="btn btn-dark btn-sm" onclick="makeNormal()">Normal</button>
+  <br> 
+  </div> 
+  
+  <script> 
+  var myVideo = document.getElementById("video1"); 
+  
+  function playPause() { 
+      if (myVideo.paused) 
+          myVideo.play(); 
+      else 
+          myVideo.pause(); 
+  } 
+  
+  function makeBig() { 
+      myVideo.width = 300; 
+  } 
+  
+  function makeSmall() { 
+      myVideo.width = 200; 
+  } 
+  
+  function makeNormal() { 
+      myVideo.width = 250; 
+  } 
+  </script>
+  
+  <br><center><button type="button" class="btn btn-outline-dark"><a href="index.html">HOME</a></button></center>
+ 
+</div>
+
+</body>
+</html>

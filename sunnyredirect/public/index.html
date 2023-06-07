@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>백지민의 session 사용</title>
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+  <link rel="apple-touch-icon" sizes="180x180" href="image/logo.png" />
+  <link rel="icon" type="image/png" href="image/logo.png" sizes="192x192" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/sunny/jquery-ui.css" />
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+  <!-- <script src="https://maps.google.com/maps/api/js?key=AIzaSyA7nnoG8FxJ8CcMFYcE_isUIH-GUFvu4jA">
+    </script> 최상위 메뉴에서 지도를 사용하면 링크로 연결된 아래메뉴의 지도실행이 중복이 되어 실행이 안됨-->
+
+  <link rel="stylesheet" href="css/count6.css" />
+  <script src="js/count6.js"></script>
+  <link rel="stylesheet" href="css/map.css" />
+  <script src="js/myLoc.js"></script>
+  <script src="js/carlendar.js"></script>
+  <style>
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    *{
+      font-family: 'Dovemayo_gothic';
+    }
+    
+    .fakeimg {
+      height: 250px;
+      width: 100%;
+      background: rgb(211, 211, 221);
+      border-radius: 7px;
+      padding: 10px 15px;
+      margin-top: 10px;
+    }
+
+    /* 움직이는 텍스트 */
+    .animated-title {
+      font-size: 60px;
+      font-family: 'Raleway', Sans-serif;
+      font-weight: 300;
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      padding: 50px 0;
+      margin-bottom: 20px;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      background-color: rgb(193, 208, 181);
+      color: white;
+    }
+
+    .animated-title .track {
+      position: absolute;
+      white-space: nowrap;
+      will-change: transform;
+      animation: marquee 100s linear infinite;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (hover: hover) and (min-width: 700px) {
+      .animated-title .content {
+        -webkit-transform: translateY(calc(100% - 8rem));
+        transform: translateY(calc(100% - 8rem));
+      }
+    }
+    /* end 움직이는 텍스트 */
+
+    /* nav바 색 */
+    .nav-pills > .nav-item > .active{
+      color: rgb(100, 100, 100) !important;
+      background-color: rgb(255, 248, 222);
+    }
+    .nav-pills > .nav-item > .nav-link{
+      color: rgb(100, 100, 100) !important;
+    }
+    .nav-pills > .nav-item > .nav-link:hover{
+      color:rgb(193, 208, 181) !important;
+    }
+
+  </style>
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="popover"]').popover();
+      $("#savehtml").click(function () {
+        $("#content").html(createTimeString());
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!--제목-->
+  <div style="margin-top:20px">
+    <div class="animated-title">
+      <div class="track">
+        <div class="content">&nbsp;Welcome to Baek's page&nbsp;&nbsp;&nbsp;Welcome to Baek's page&nbsp;&nbsp;&nbsp;Welcome to Baek's page&nbsp;&nbsp;&nbsp;Welcome to
+          Baek's page&nbsp;&nbsp;&nbsp;Welcome to Baek's page&nbsp;&nbsp;&nbsp;Welcome to Baek's page
+        </div>
+      </div>
+    </div>
+    <!--메뉴버튼-->
+    <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+      <a class="navbar-brand" href="#">홈</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="profile1.html">내소개</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="table.html">강의시간표</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lecture.html">강의실자료</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="board.html">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-dark" href="login2.html">리뷰달기</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <!--왼쪽내용-->
+        <div class="col-sm-4">
+          <div>
+            <h2>About Me</h2>
+            <font size=3>Photo of me:</font>
+
+            <img src="image/baek.jpg" alt="John Doe" class="mr-3 mt-3 Thumbnail" top-magrin: style="width:150px;">
+            <h5>3206백지민</h5>
+            메일 정보: <a href="s2104@e-mirim.hs.kr">
+              s2104@e-mirim.hs.kr</a>.<p>
+            <p>
+            <p>
+          </div>
+
+          <div class="mt-4">
+            <h2>나의 작품</h2>
+            <font size=3>나의 작품을 추가하여 보세요</font>
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="calculator.html">계산기</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="midwav.html">오디오실행</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="video.html">비디오실행</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="clock2.html">타이머</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="jquery1/jquery1.html">사진이동</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="jquery2/sunny.html">달력</a>
+              </li>
+            </ul>
+            <hr class="d-sm-none">
+          </div>
+
+          <div class="mt-5">
+            <h2>My way</h2>
+            <font size=3>정보 보안 개발자가 꿈입니다.</font>
+            <img src="https://shareditassets.s3.ap-northeast-2.amazonaws.com/production/uploads/post/featured_image/11775/IT-Security-Icon-1013x675.jpg" alt="식물" class="img-fluid">
+          </div>
+        </div>
+
+        <!--가운데 메뉴-->
+        <div class="col-sm-4">
+          <div> <!--Favorite Food-->
+            <h2>Favorite Food</h2>
+            <font size=3>제가 좋아하는 음식들입니다.</font>
+            <div>
+              <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ul>
+
+                <!-- 캐러샐 -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/712/image/XQjR09O9a2PE6StbeuWe4WifRM0.jpg"
+                      alt="단호박 스프" width="1100" height="500" class="img-fluid">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://www.danpoongmall.kr/wp-content/uploads/2022/02/IMG_1558.jpg" alt="토마토계란볶음"
+                      width="1100" height="500" class="img-fluid">
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="https://paiksbeer.com/wp-content/uploads/2018/04/00_%EA%B3%A0%EB%A5%B4%EA%B3%A4%EC%A1%B8%EB%9D%BC%ED%94%BC%EC%9E%90_%EB%A6%AC%EB%89%B4%EC%96%BC.png"
+                      alt="고르곤졸라 피자" width="1100" height="500" class="img-fluid">
+                  </div>
+                </div>
+
+                <!-- 이동 화살표 -->
+                <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </a>
+
+                <!-- 캐러셀 js 설정 -->
+                <script>
+                  $(document).ready(function () {
+                    // Activate Carousel with a specified interval
+                    $("#myCarousel").carousel({ interval: 400 });
+
+                    // Enable Carousel Indicators
+                    $(".item1").click(function () {
+                      $("#myCarousel").carousel(0);
+                    });
+                    $(".item2").click(function () {
+                      $("#myCarousel").carousel(1);
+                    });
+                    $(".item3").click(function () {
+                      $("#myCarousel").carousel(2);
+                    });
+
+                    // Enable Carousel Controls
+                    $(".carousel-control-prev").click(function () {
+                      $("#myCarousel").carousel("prev");
+                    });
+                    $(".carousel-control-next").click(function () {
+                      $("#myCarousel").carousel("next");
+                    });
+                  });
+                </script>
+
+              </div>
+            </div>
+            <div>
+              <div class="fakeimg">
+                <p>1. 단호박 스프<br>
+                  우리 학교 급식으로 나오는 스프를 가장 좋아합니다. 고소하고 달달한 풍미를 음미하곤 합니다.<br>
+                  2. 토마토계란볶음<br>
+                  중국의 가정 음식으로, 토마토의 새콤함과 계란의 달콤함이 오묘합니다.<br>
+                  3. 고르곤졸라 피자<br>
+                  꿀을 곁들여먹는 치즈피자입니다. 피자의 짠맛과 꿀의 단맛의 조화를 정말 좋아합니다.                  
+                </p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="mt-4"> <!--Counter-->
+            <h2>Counter</h2>
+            <font size=3>기준일 : 2023.06.02</font>
+            <div class="cover">
+              <p>&nbsp;</p>
+              <h4>COMING SOON</h4>
+              <p id="count"></p>
+            </div>
+            <div class="fakeimg">
+              <p>하루의 시간 ..</p>
+              <p>
+
+                오늘 하루는 <br>
+                내 생애의 축소판. <br>
+                아침에 눈을 떠서 저녁에 잠잘 때까지 <br>
+                하루 종일 희망을 말하는 사람, <br>
+                그게 나였으면 좋겠습니다.<br>
+                (권대웅·시인)<br>
+            </div>
+            <br>
+          </div>
+        </div>
+
+        <!--오른쪽 메뉴-->
+        <div class="col-sm-4">
+          <div>
+            <h2>What's your hobby?</h2>
+            <font size=3>식물을 가만히 감상하는 것입니다.</font>
+            <img src=https://www.ikea.com/kr/ko/images/products/fejka-artificial-potted-plant-in-outdoor-monstera__0959226_pe809439_s5.jpg?f=xxs" alt="식물" class="img-fluid rounded-circle">
+          </div>
+
+          <div  class="mt-5">
+            <h2>My Calendar</h2>
+            <font size=3>오늘의 날짜입니다</font>
+            <div id="datepicker" align="center"></div>
+            <div class="fakeimg"> 달력
+  
+              달력 속에는
+              숫자들이 가지런히
+              놓여 있어요.<br>
+  
+              하루하루 지나 한 달이 되어
+              한 장을 넘기다 보면
+              계절에 맞춰
+              예쁜 그림도 바뀌지요. <br>
+  
+              새 달력이 나오면
+              먼저 기념일에다
+              동그라미를 넣고
+              공휴일도 세어요.
+  
+              해마다
+              반복되는
+              숫자들의 배열
+              우리네 인생이에요.<br>
+              (이제민·시인)
+            </div>
+
+          </div>
+        </div> <!--//col-->
+      </div>
+    </div>
+</body>
+
+</html>

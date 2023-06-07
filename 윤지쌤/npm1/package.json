@@ -1,0 +1,15 @@
+{
+  "name": "npm1",
+  "version": "1.0.0",
+  "main": "npmtest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "figlet": "^1.6.0"
+  }
+}

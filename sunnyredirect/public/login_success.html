@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, height-device-height, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/logo.png" />
+    <link rel="icon" type="image/png" href="image/logo.png" sizes="192x192" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!--추가1-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--추가1-->
+
+    <title>로그인 성공</title>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <hr>
+        <div class="row">
+            <h1>로그인 성공</h1>
+        </div>
+        <hr>
+        <div class="row mt-5">
+            <a href='/process/product' class="btn btn-info">상품 페이지로 이동하기</a>
+            <a href='/photomulti_link.html' class="btn btn-info mx-3">파일업로드로 이동하기</a>
+        </div>
+    </div>
+</body>
+<!-- 
+    res.writeHead("200", { "Content-Type": "text/html; charset=utf8" });
+res.write("<h1>로그인 성공</h1>");
+res.write("<div><p>Param id : " + paramId + "</p></div>");
+res.write("<div><p>Param password : " + paramPassword + "</p></div>");
+res.write(
+    "<br><br><button><a href='/process/product'>상품 페이지로 이동하기</a></button"
+);
+res.write(
+    "<br><br><button><a href='/photomulti_link.html'>파일업로드로 이동하기</a></button>"
+);
+ -->
+
+</html>
+
