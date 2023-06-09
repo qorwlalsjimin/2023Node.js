@@ -1,0 +1,104 @@
+C:\nodejs>mongod --dbpath ./database/local
+=========================================================
+Microsoft Windows [Version 10.0.18362.535]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\sunhee>cd..
+
+C:\Users>cd ..
+
+C:\>cd nodejs
+C:\nodejs>mongod --dbpath ./database/local
+
+=========================================================
+C:\nodejs>mongo
+use local
+show collections;
+show dbs;
+db.users.insert({name:'소녀시대',age:20})
+db.users.remove({name:/소녀/})
+db.users.find().pretty()
+show collections;
+show dbs;
+=========================================================
+Microsoft Windows [Version 10.0.18362.535]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\sunhee>cd..
+
+C:\Users>cd ..
+
+C:\>cd nodejs
+
+C:\nodejs>dir
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: 30FF-C4AA
+
+C:\nodejs 디렉터리
+
+2020-01-11  오후 05:38    <DIR>          .
+2020-01-11  오후 05:38    <DIR>          ..
+2020-01-11  오후 05:22    <DIR>          database
+2020-01-12  오전 10:45    <DIR>          DatabaseExample
+2020-01-11  오후 04:14    <DIR>          ExpressExample
+2020-01-11  오후 05:07       332,285,440 mongodb-win32-x86_64-enterprise-windows-64-4.2.2-signed.msi
+2020-01-11  오후 01:41    <DIR>          NodeExample1
+               1개 파일         332,285,440 바이트
+               6개 디렉터리  51,244,568,576 바이트 남음
+
+C:\nodejs>mongo
+MongoDB shell version v4.2.2
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("944ae9e2-df81-4c1f-8919-0cbe4e4600d3") }
+MongoDB server version: 4.2.2
+Server has startup warnings:
+2020-01-11T18:12:26.506+0900 I  CONTROL  [initandlisten]
+2020-01-11T18:12:26.506+0900 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-01-11T18:12:26.506+0900 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-01-11T18:12:26.506+0900 I  CONTROL  [initandlisten]
+MongoDB Enterprise >use local
+switched to db local
+MongoDB Enterprise >db.users.insert({name:'소녀시대',age:20})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise > db.users.find().pretty()
+{
+        "_id" : ObjectId("5e1987a0a62003c2d5aa9d29"),
+        "name" : "소녀시대",
+        "age" : 20
+}
+MongoDB Enterprise >db.users.insert({name:'소녀시절',age:22})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise > db.users.find().pretty()
+{
+        "_id" : ObjectId("5e1987a0a62003c2d5aa9d29"),
+        "name" : "소녀시대",
+        "age" : 20
+}
+{
+        "_id" : ObjectId("5e1a7d85478c35217ebc440d"),
+        "name" : "소녀시절",
+        "age" : 22
+}
+MongoDB Enterprise > db.users.remove({name:/소녀/})
+WriteResult({ "nRemoved" : 2 })
+MongoDB Enterprise > db.users.find().pretty()
+
+MongoDB Enterprise > db.users.insert({id:'test01',name:'소녀시대',password:'123456'})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise > db.users.find().pretty()
+{
+        "_id" : ObjectId("5e1a7f52478c35217ebc440e"),
+        "id" : "test01",
+        "name" : "소녀시대",
+        "password" : "123456"
+}
+MongoDB Enterprise >
+
+
+
+
+
+
+
+
+
