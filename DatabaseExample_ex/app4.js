@@ -85,7 +85,7 @@ function connectDB() {
 	});
 
 	//스키마에 static으로 findById 메서드 추가
-	UserSchema.statie('findById', function(id, callback){
+	UserSchema.static('findById', function(id, callback){
 		return this.find({id:id}, callback);
 	});
 
@@ -105,25 +105,6 @@ function connectDB() {
 	console.log('연결이 끊어졌습니다. 5초 후 재연결합니다.');
 	setInterval(connectDB, 5000);
   });
-  // MongoClient.connect(databaseUrl)
-  // .then(_db=>{
-  //   console.log("데이터베이스에 연결되었습니다. " + databaseUrl)
-  //   console.log(_db)
-  //   database = _db.db('local');
-
-  // })
-  // .catch(err=>{
-  //   console.log(err)
-  // }).finally(()=>{
-  //   console.log("끛!")
-  // })
-
-//   MongoClient.connect(databaseUrl, function (err, db1) {
-//     if (err) throw err;
-//     console.log("데이터베이스에 연결되었습니다. : " + databaseUrl);
-//     // database 변수에 할당
-//     database = db1.db('local');
-//   });
 }
 
 
@@ -131,7 +112,7 @@ function connectDB() {
 async function authUser(database, id, password, callback){
 	try{
 		console.log(`authUser 호출됨: ${id}, ${password}`);
-		var docs = await UserModel.find({"id":id, "password":password});
+		var docs = await UserModel.findById(id);
 
 		if(docs.length > 0){
 			console.log(`아이디 ${id}, 패스워드 ${password}가 일치하는 사용자 찾음.`);
@@ -248,6 +229,45 @@ router.route('/process/adduser').post(function(req, res){
 		res.writeHead('200', {'Content-Type':'text/html; charset=utf8'});
 		res.write('<h2>데이터베이스 연결 실패</h2>');
 		res.end();
+	}
+})
+
+router.route('/process/listuser').post(async function(req, res){
+	console.log('/process/listuser 호출됨.');
+
+	//데이터베이스 객체가 초기화된 경우, 모델 객체의 findAll 메서드 호출
+	if(database){
+		//1. 모든 사용자 검색
+		try{
+			const results = await UserModel.findAll();
+
+			if(results){
+				console.dir(results);
+
+				res.writeHead('200', {'Content-Type':'text/html; charset=utf8'});
+				res.write('<h2>사용자 리스트</h2>');
+				res.write('<div><ul>');
+
+				for(var i = 0; i<results.length; i++){
+					var curId = results[i]._doc.id;
+					var curName = results[i]._doc.name;
+					res.write(`		<li># ${i}: ${curId}, ${curName}</li>`);
+				}
+				res.write('</ul></div>');
+				res.end();
+			}else{
+				res.writeHead('200', {'Content-Type':'text/html; charset=utf8'});
+				res.write('<h2>사용자 리스트 조회 실패</h2>');
+				res.end();
+			}
+		}catch(err){
+			console.error('사용자 리스트 조회 중 에러 발생: ', err.stack);
+			res.writeHead('200', {'Content-Type':'text/html; charset=utf8'});
+			res.write('<h2>사용자 리스트 조회 중 에러 발생</h2>'); 
+			res.write(`<p>${err.stack}</p>`);
+			res.end();
+			return; 
+		}
 	}
 })
 
