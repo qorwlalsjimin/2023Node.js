@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>파일업로드 테스트</title>
+    <meta name="viewport" content="width=device-width, height-device-height, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/logo.png" />
+    <link rel="icon" type="image/png" href="image/logo.png" sizes="192x192" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-추가1-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-추가1-->
+</head>
+
+<body>
+    <br><br>&nbsp;&nbsp;&nbsp;
+    <font size=5 color=gray>파일업로드</font><br>
+    <hr />
+    <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-warning btn-sm">&nbsp;<a href=/index.html>홈</a></button>
+    <hr>
+    <form method="post" enctype="multipart/form-data" action="/process/photomulti_link">
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="file" size="12" name="photo12" multiple class="btn btn-outline-secondary btn-sm"></input>
+        <!-- <td><input name="photo" type="file" multiple /></td> -->
+        <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="업로드" name="submit" class="btn btn-danger btn-sm"></input>
+    </form>
+</body>
+
+</html>

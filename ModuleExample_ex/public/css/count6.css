@@ -1,0 +1,21 @@
+
+.cover{
+    line-height:70px;
+    width:100%;
+    height:200px;
+    text-align:center;
+    font-family:"Courier New", Courier, monospace;
+    background:url(https://i.imgur.com/GqMICtx.jpg) center center/cover no-repeat;
+    border-radius: 7px;
+}
+
+
+
+.content p{
+    font-size:5x;
+    font-family:"Courier New", Courier, monospace;
+    margin: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
