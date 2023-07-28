@@ -89,7 +89,7 @@ function connectDB() {
 		console.log('데이터베이스에 연결되었습니다. : ' + databaseUrl);
 
 		// user 스키마 및 모델 객체 생성
-		createUserSchema(database);
+		createUserSchema();
 
 	});
 
@@ -101,14 +101,9 @@ function connectDB() {
 }
 
 //user 스키마 및 모델 객체 생성
-function createUserSchema(database) {
+function createUserSchema() {
 	//스키마 정의
 	// password를 hashed_password로 변경, 각 칼럼에 default 속성 모두 추가, salt 속성 추가
-
-	//2. user_schema.js 모듈 불러오기, 다른 모듈로 전달할 수 있으므로 database.UserSchema로 함
-	database.UserSchema = require('./database/user_schema').createSchema(mongoose);
-
-	//User 모델 정의 - 아직 분리하기 전
 	UserSchema = mongoose.Schema({
 		id: { type: String, required: true, unique: true, 'default': '' },
 		hashed_password: { type: String, require: true, 'default': '' },
