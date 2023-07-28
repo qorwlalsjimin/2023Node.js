@@ -9,7 +9,7 @@ User.prototype.getUser = function(){
     return {id: this.id, name: this.name, mail: this.mail};
 }
 
-User.prototype.group = {id: 'group1', name: '친구', mail: 's2104@gmail.com'};
+User.prototype.group = {id: 'group1', name: '친구'};
 
 User.prototype.printUser  = function(){
     console.log('user 이름: %s, group 이름: %s', this.name, this.group.name);

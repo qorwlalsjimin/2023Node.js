@@ -14,4 +14,4 @@ User.prototype.printUser  = function(){
     console.log('user 이름: %s, group 이름: %s', this.name, this.group.name);
 }
 
-module.exports = new User('test01', '소녀시대');
+exports.user = new User('test01', '소녀시대');
