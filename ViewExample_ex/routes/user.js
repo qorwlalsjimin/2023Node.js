@@ -14,36 +14,41 @@ var login = function(req, res) {
 		authUser(database, paramId, paramPassword, function(err, docs) {
 			// 에러 발생 시, 클라이언트로 에러 전송
 			if (err) {
-                console.error('사용자 로그인 중 에러 발생 : ' + err.stack);
-                
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				console.error('사용자 로그인 중 에러 발생 : ' + err.stack);
+				
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 				res.write('<h2>사용자 로그인 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
+				res.write('<p>' + err.stack + '</p>');
 				res.end();
                 
-                return;
-            }
+				return;
+			}
 			
-            // 조회된 레코드가 있으면 성공 응답 전송
+			// 조회된 레코드가 있으면 성공 응답 전송
 			if (docs) {
 				console.dir(docs);
 
                 // 조회 결과에서 사용자 이름 확인
 				var username = docs[0].name;
-				
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h1>로그인 성공</h1>');
-				res.write('<div><p>사용자 아이디 : ' + paramId + '</p></div>');
-				res.write('<div><p>사용자 이름 : ' + username + '</p></div>');
-				res.write("<br><br><a href='/public/login.html'>다시 로그인하기</a>");
-				res.end();
-			
-			} else {  // 조회된 레코드가 없는 경우 실패 응답 전송
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h1>로그인  실패</h1>');
-				res.write('<div><p>아이디와 패스워드를 다시 확인하십시오.</p></div>');
-				res.write("<br><br><a href='/public/login.html'>다시 로그인하기</a>");
-				res.end();
+				var context = {userid:paramId, userpassword:paramPassword};
+				req.app.render('login_success', context, function(err, html) {
+					if (err) {
+						console.error('뷰 렌더링 중 에러 발생 : ' + err.stack);
+						res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+						res.write('<h2>뷰 렌더링 중 에러 발생</h2>');
+						res.write('<p>' + err.stack + '</p>');
+						res.end();
+						return;
+					}
+					console.log('rendered : ' + html);
+					res.end(html);
+				}); 			
+			} else {  
+				var context = {userid:paramId, userpassword:paramPassword};
+				req.app.render('login_fail', context, function(err, html) {
+				console.log("rendered : " + html);
+				res.end(html);
+				});
 			}
 		});
 	} else {  // 데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송
@@ -55,52 +60,50 @@ var login = function(req, res) {
 	
 };
 
-
-
-
 var adduser = function(req, res) {
 	console.log('/process/adduser 호출됨.');
 
-    var paramId = req.body.id || req.query.id;
-    var paramPassword = req.body.password || req.query.password;
-    var paramName = req.body.name || req.query.name;
-	
-    console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName);
+	var paramId = req.body.id || req.query.id;
+	var paramPassword = req.body.password || req.query.password;
+	var paramName = req.body.name || req.query.name;
 
-    //데이터베이스 객체 참조
-    var database = req.app.get('database');
-    
-    // 데이터베이스 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
+	console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName);
+
+	//데이터베이스 객체 참조
+	var database = req.app.get('database');
+	
+	// 데이터베이스 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
 	if (database.db) {
-		addUser(database, paramId, paramPassword, paramName, function(err, addedUser) {
-            // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
+    addUser(database, paramId, paramPassword, paramName, function(err, addedUser) {
+			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
 			if (err) {
-                console.error('사용자 추가 중 에러 발생 : ' + err.stack);
-                
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				console.error('사용자 추가 중 에러 발생 : ' + err.stack);
+				res.writeHead('200', {'Content-Type': 'text/html;charset=utf8'});
 				res.write('<h2>사용자 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
+				res.write('<p>' + err.stack + '</p>');
 				res.end();
-                
-                return;
-            }
-			
-            // 결과 객체 있으면 성공 응답 전송
-			if (addedUser) {
+			} else if (addedUser) {
 				console.dir(addedUser);
- 
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 추가 성공</h2>');
-				res.end();
-			} else {  // 결과 객체가 없으면 실패 응답 전송
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 추가  실패</h2>');
-				res.end();
+
+				var context = { title: '사용자 추가 성공' }; 
+				req.app.render('adduser', context, function(err, html) {
+					if (err) {
+						console.error('뷰 렌더링 중 에러 발생 : ' + err.stack);
+						res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+						res.write('<h2>뷰 렌더링 중 에러 발생</h2>');
+						res.write('<p>' + err.stack + '</p>');
+						res.end();
+						return;
+					}
+					console.log('rendered : ' + html);
+					res.end(html);
+				}); 		
 			}
-		});
+    });
 	} else {  // 데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송
 		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.write('<div><p>데이터베이스에 연결하지 못했습니다.</p></div>');
 		res.end();
 	}
 	
@@ -118,26 +121,38 @@ var listuser = async function(req, res) {
 		try {
 			const results = await database.UserModel.findAll();
 		  
-			if (results) {  // 결과 객체 있으면 리스트 전송
+			if (results.length > 0) {  // 결과 객체 있으면 리스트 전송
 				console.dir(results);
- 
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 리스트</h2>');
-				res.write('<div><ul>');
-				
-				for (var i = 0; i < results.length; i++) {
-					var curId = results[i]._doc.id;
-					var curName = results[i]._doc.name;
-					res.write('    <li>#' + i + ' : ' + curId + ', ' + curName + '</li>');
-				}	
-			
-				res.write('</ul></div>');
-				res.end();
+				//view - listuser  수정3 전 시작 - listuser.ejs
+
+				//view - listuser 수정3 전 끝
+				var context = {results:results};
+				req.app.render('listuser', context, function(err, html) {
+				    if (err) {
+                    console.error('뷰 렌더링 중 에러 발생 : ' + err.stack);
+                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				            res.write('<h2>뷰 렌더링 중 에러 발생</h2>');
+                    res.write('<p>' + err.stack + '</p>');
+				            res.end();
+                    return;
+            	   }
+					console.log('rendered : ' + html);
+					res.end(html);
+				});
+
+
 			} else {  // 결과 객체가 없으면 실패 응답 전송
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 리스트 조회  실패</h2>');
-				res.end();
-		}
+
+				var context = {results:results};
+				if (results.length == 0){							
+								  req.app.render('listuser_fail', context, function(err, html) {
+									console.log("rendered : " + html);
+									res.end(html);
+								});
+				};
+
+
+			}
 		} catch (err) {
 			console.error('사용자 리스트 조회 중 에러 발생 : ' + err.stack);
 			res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -180,10 +195,11 @@ var addUser = async function addUser(database, id, password, name, callback) {
 
 		// save()로 저장 : 저장 성공 시 addedUser 객체가 파라미터로 전달됨
 		var addedUser = await user.save(addedUser);
-
+		console.log("사용자 데이터 추가함1.");
 		if (user) {
-			console.log("사용자 데이터 추가함.");
+			console.log("사용자 데이터 추가함2.");
 			callback(null, addedUser);
+
 		} else {
 			console.log("사용자 데이터 추가하지 못함.");
 			callback(null, null);

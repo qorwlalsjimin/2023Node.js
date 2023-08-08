@@ -104,3 +104,4 @@ Schema.createSchema = function(mongoose) {
 
 // module.exports에 UserSchema 객체 직접 할당
 module.exports = Schema;
+
